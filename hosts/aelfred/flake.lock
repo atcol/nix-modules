@@ -66,11 +66,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1722803174,
-        "narHash": "sha256-ft2eDR5Dl6QcPvvKaUZcz/xfrjZJCDpOQzelEnFVCNE=",
+        "lastModified": 1722846374,
+        "narHash": "sha256-be51t/QOr0LfmquO/rZDVv433YgS4JdjumE1RcDOouo=",
         "owner": "atcol",
         "repo": "config-files",
-        "rev": "2b078960bfc6203f44b351c44a0c90c273f6fcaf",
+        "rev": "a3b82884aedf9a09d673ac751a50a0b4bf6ba103",
         "type": "github"
       },
       "original": {
