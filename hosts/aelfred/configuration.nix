@@ -104,6 +104,7 @@
     discord
     git
     inputs.home-manager.packages."${pkgs.system}".home-manager
+    alacritty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
