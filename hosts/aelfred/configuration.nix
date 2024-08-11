@@ -46,8 +46,11 @@
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  #services.xserver.displayManager.lightdm.enable = true;
+  #services.xserver.desktopManager.xfce.enable = true;
+
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -105,6 +108,8 @@
     git
     inputs.home-manager.packages."${pkgs.system}".home-manager
     alacritty
+    jetbrains.idea-community
+    cheese   
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -138,4 +143,5 @@
     "nix-command"
     "flakes"
   ];
+
 }
