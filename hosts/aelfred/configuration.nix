@@ -14,6 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  system.autoUpgrade.enable  = true;
   networking.hostName = "aelfred"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -42,21 +43,32 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.logind.extraConfig = ''
+    HandleLidSwitchExternalPower=lock
+  '';
 
-  # Enable the XFCE Desktop Environment.
-  #services.xserver.displayManager.lightdm.enable = true;
-  #services.xserver.desktopManager.xfce.enable = true;
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+  };
 
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
+  services.displayManager.defaultSession = "cosmic";
 
   # Configure keymap in X11
   services.xserver = {
     layout = "gb";
     xkbVariant = "";
   };
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startxfce4";
+  services.xrdp.openFirewall = true;
 
   # Configure console keymap
   console.keyMap = "uk";
@@ -83,14 +95,23 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.ollama.enable = true;
+  services.ollama.acceleration = "cuda";
+  services.ollama.host = "0.0.0.0";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.atc = {
     isNormalUser = true;
     description = "atc";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "tty" "disk" "video" "dialout" "kvm" ];
     packages = with pkgs; [
     #  thunderbird
     ];
+  };
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
   };
 
   # Install firefox.
@@ -110,6 +131,9 @@
     alacritty
     jetbrains.idea-community
     cheese   
+    rdesktop
+    xscreensaver
+    jetbrains-toolbox
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
